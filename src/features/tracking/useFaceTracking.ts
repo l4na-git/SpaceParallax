@@ -71,19 +71,28 @@ export function useFaceTracking() {
           const result = landmarker.detectForVideo(videoRef.current, performance.now());
           const landmarks = result.faceLandmarks?.[0];
           if (landmarks) {
-            const nose = landmarks[1];
+            const leftEyeOuter = landmarks[33];
+            const leftEyeInner = landmarks[133];
+            const rightEyeInner = landmarks[362];
+            const rightEyeOuter = landmarks[263];
             const leftCheek = landmarks[234];
             const rightCheek = landmarks[454];
+            const leftEyeCenterX = (leftEyeOuter.x + leftEyeInner.x) / 2;
+            const leftEyeCenterY = (leftEyeOuter.y + leftEyeInner.y) / 2;
+            const rightEyeCenterX = (rightEyeInner.x + rightEyeOuter.x) / 2;
+            const rightEyeCenterY = (rightEyeInner.y + rightEyeOuter.y) / 2;
+            const eyeMidpointX = (leftEyeCenterX + rightEyeCenterX) / 2;
+            const eyeMidpointY = (leftEyeCenterY + rightEyeCenterY) / 2;
             const faceWidth = Math.max(Math.abs(rightCheek.x - leftCheek.x), 0.1);
-            const normalizedX = (0.5 - nose.x) * 1.9;
-            const normalizedY = (0.5 - nose.y) * 1.6;
+            const normalizedX = (0.5 - eyeMidpointX) * 1.8;
+            const normalizedY = (0.5 - eyeMidpointY) * 2.3;
             const dampedX = THREE.MathUtils.clamp(normalizedX * (0.7 + faceWidth), -1.2, 1.2);
-            const dampedY = THREE.MathUtils.clamp(normalizedY * (0.7 + faceWidth), -0.9, 0.9);
+            const dampedY = THREE.MathUtils.clamp(normalizedY * (0.7 + faceWidth), -1.3, 1.3);
             setTrackingStatus({
               status: 'active',
               supported: true,
               mode: 'face',
-              message: 'Face offset tracking active',
+              message: 'Face position tracking active',
               offsetX: dampedX,
               offsetY: dampedY,
             });
