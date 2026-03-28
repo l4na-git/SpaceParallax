@@ -102,3 +102,121 @@ button {
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
+
+.maintenance-shell {
+  position: relative;
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  overflow: hidden;
+  padding: 24px;
+  background:
+    radial-gradient(circle at top, rgba(21, 231, 255, 0.18), transparent 28%),
+    radial-gradient(circle at 20% 80%, rgba(255, 122, 89, 0.12), transparent 26%),
+    linear-gradient(160deg, #030508 0%, #09111a 48%, #05070b 100%);
+}
+
+.maintenance-card {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 680px);
+  padding: 40px 32px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 28px;
+  background:
+    linear-gradient(180deg, rgba(10, 15, 20, 0.88) 0%, rgba(7, 10, 14, 0.94) 100%);
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(18px);
+}
+
+.maintenance-kicker {
+  margin-bottom: 16px;
+  font-size: 0.78rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(21, 231, 255, 0.78);
+}
+
+.maintenance-card h1 {
+  margin: 0;
+  font-size: clamp(2.4rem, 5vw, 4.8rem);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+  color: #f7fbff;
+}
+
+.maintenance-copy {
+  max-width: 34rem;
+  margin: 20px 0 0;
+  font-size: 1rem;
+  line-height: 1.8;
+  color: rgba(230, 238, 244, 0.78);
+}
+
+.maintenance-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 28px;
+  padding: 12px 16px;
+  border: 1px solid rgba(21, 231, 255, 0.2);
+  border-radius: 999px;
+  background: rgba(21, 231, 255, 0.08);
+  font-size: 0.9rem;
+  color: rgba(238, 247, 250, 0.92);
+}
+
+.maintenance-status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: #15e7ff;
+  box-shadow: 0 0 18px rgba(21, 231, 255, 0.9);
+}
+
+.maintenance-orbit {
+  position: absolute;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  opacity: 0.75;
+}
+
+.maintenance-orbit-one {
+  width: 48vw;
+  height: 48vw;
+  min-width: 360px;
+  min-height: 360px;
+  top: -12vw;
+  right: -10vw;
+  transform: rotate(18deg);
+}
+
+.maintenance-orbit-two {
+  width: 62vw;
+  height: 62vw;
+  min-width: 480px;
+  min-height: 480px;
+  bottom: -24vw;
+  left: -18vw;
+  border-color: rgba(255, 122, 89, 0.12);
+  transform: rotate(-14deg);
+}
+
+@media (max-width: 640px) {
+  .maintenance-card {
+    padding: 28px 22px;
+    border-radius: 22px;
+  }
+
+  .maintenance-copy {
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .maintenance-status {
+    width: 100%;
+    justify-content: center;
+  }
+}
