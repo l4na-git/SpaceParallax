@@ -12,14 +12,14 @@ function OrbitRing({ radius }: { radius: number }) {
     const points = curve.getPoints(120).map((point: THREE.Vector2) => new THREE.Vector3(point.x, 0, point.y));
     const geometry = new THREE.BufferGeometry().setFromPoints(points);
     const material = new THREE.LineBasicMaterial({
-      color: '#dce4ea',
-      opacity: 0.14,
+      color: '#ffffff',
+      opacity: 0.3,
       transparent: true,
     });
     return new THREE.Line(geometry, material);
   }, [radius]);
 
-  return <primitive object={orbitLine} rotation={[-Math.PI / 2, 0, 0]} />;
+  return <primitive object={orbitLine} />;
 }
 
 function Starfield() {
@@ -137,7 +137,6 @@ function PlanetSystem({
 
   return (
     <group>
-      <OrbitRing radius={body.orbitRadius} />
       <BodyMesh body={body} position={position} selected={selectedBodyId === body.id} />
     </group>
   );
@@ -163,11 +162,12 @@ export function SolarSystemScene({
       <ambientLight intensity={0.22} />
       <directionalLight position={[0, 18, 20]} intensity={0.3} color="#9be9ff" />
       <Starfield />
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.03, 0]}>
-        <circleGeometry args={[28, 80]} />
-        <meshBasicMaterial color="#0b6772" transparent opacity={0.04} />
-      </mesh>
-      <group rotation={[-0.28, 0.28, 0]}>
+      <group>
+        {allBodies
+          .filter((body) => body.orbitRadius > 0)
+          .map((body) => (
+            <OrbitRing key={`${body.id}-orbit`} radius={body.orbitRadius} />
+          ))}
         {allBodies.map((body) => (
           <PlanetSystem
             key={body.id}
