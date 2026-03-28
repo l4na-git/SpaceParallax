@@ -22,7 +22,7 @@ export function AddObjectPanel() {
         addObjectPanelOpen ? 'translate-x-0 opacity-100' : 'pointer-events-none translate-x-8 opacity-0'
       }`}
     >
-      <div className="h-full border border-cyan-400/8 bg-[#14171b]/95 px-6 py-6">
+      <div className="h-full overflow-y-auto border border-cyan-400/8 bg-[#14171b]/95 px-6 py-6">
         <div className="section-label">Initialization Sequence</div>
         <div className="mt-2 flex items-center justify-between">
           <h2 className="text-3xl font-semibold">Add New Celestial Body</h2>
