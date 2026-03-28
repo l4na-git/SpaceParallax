@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+:root {
+  font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+  color: #f4fbff;
+  background:
+    radial-gradient(circle at top, rgba(0, 208, 255, 0.08), transparent 30%),
+    linear-gradient(180deg, #050608 0%, #08090d 48%, #050507 100%);
+  color-scheme: dark;
+  --bg-main: #050608;
+  --bg-panel: rgba(19, 23, 29, 0.9);
+  --bg-panel-soft: rgba(25, 30, 36, 0.88);
+  --border-soft: rgba(63, 237, 255, 0.12);
+  --border-strong: rgba(36, 234, 255, 0.72);
+  --accent: #15e7ff;
+  --accent-soft: rgba(21, 231, 255, 0.18);
+  --text-muted: rgba(206, 220, 230, 0.7);
+  --shadow-accent: 0 0 40px rgba(21, 231, 255, 0.18);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  overflow: hidden;
+  background:
+    radial-gradient(circle at center, rgba(16, 22, 28, 0.65), transparent 55%),
+    linear-gradient(180deg, #040507 0%, #090b10 100%);
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.panel {
+  border: 1px solid var(--border-soft);
+  background: var(--bg-panel);
+  box-shadow: var(--shadow-accent);
+  backdrop-filter: blur(14px);
+}
+
+.panel-soft {
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  background: var(--bg-panel-soft);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(12px);
+}
+
+.accent-text {
+  color: var(--accent);
+}
+
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(21, 231, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(21, 231, 255, 0.05) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+.scanlines::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.02) 0%,
+    rgba(255, 255, 255, 0) 6%,
+    rgba(255, 255, 255, 0.015) 12%
+  );
+  background-size: 100% 5px;
+  opacity: 0.08;
+}
+
+.range-accent {
+  accent-color: var(--accent);
+}
+
+.section-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(221, 236, 242, 0.5);
+}
+
+.headline-mono {
+  font-family: "Consolas", "SFMono-Regular", monospace;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
