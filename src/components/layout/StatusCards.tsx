@@ -2,18 +2,50 @@ import { useMemo, useState } from 'react';
 
 import { useAppStore } from '../../store/useAppStore';
 
-export function StatusCards() {
+export function SelectedBodyCard() {
   const baseBodies = useAppStore((state) => state.simulation.baseBodies);
   const placedObjects = useAppStore((state) => state.simulation.placedObjects);
   const selectedBodyId = useAppStore((state) => state.simulation.selectedBodyId);
-  const speedMultiplier = useAppStore((state) => state.simulation.settings.speedMultiplier);
-  const tracking = useAppStore((state) => state.tracking);
-  const [systemStatsMinimized, setSystemStatsMinimized] = useState(false);
 
   const selectedBody = useMemo(
     () => [...baseBodies, ...placedObjects].find((body) => body.id === selectedBodyId) ?? baseBodies[0],
     [baseBodies, placedObjects, selectedBodyId],
   );
+
+  return (
+    <div className="panel w-full rounded-sm px-6 py-5">
+      <div className="section-label">Selected Body</div>
+      <div className="mt-2 text-2xl font-semibold">{selectedBody.name}</div>
+      <div className="mt-1 text-sm text-white/50">{selectedBody.kind.toUpperCase()}</div>
+
+      <div className="mt-6 grid grid-cols-2 gap-4 text-sm">
+        <div>
+          <div className="section-label">Mass</div>
+          <div className="mt-2 text-white/82">{selectedBody.mass.toFixed(1)}</div>
+        </div>
+        <div>
+          <div className="section-label">Orbit Radius</div>
+          <div className="mt-2 text-white/82">{selectedBody.orbitRadius.toFixed(1)}</div>
+        </div>
+        <div>
+          <div className="section-label">Period</div>
+          <div className="mt-2 text-white/82">{selectedBody.orbitPeriodDays} days</div>
+        </div>
+        <div>
+          <div className="section-label">Objects</div>
+          <div className="mt-2 text-white/82">{placedObjects.length} user stars</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function StatusCards() {
+  const baseBodies = useAppStore((state) => state.simulation.baseBodies);
+  const placedObjects = useAppStore((state) => state.simulation.placedObjects);
+  const speedMultiplier = useAppStore((state) => state.simulation.settings.speedMultiplier);
+  const tracking = useAppStore((state) => state.tracking);
+  const [systemStatsMinimized, setSystemStatsMinimized] = useState(false);
 
   const totalMass = useMemo(
     () => [...baseBodies, ...placedObjects].reduce((sum, body) => sum + body.mass, 0).toFixed(1),
@@ -78,30 +110,6 @@ export function StatusCards() {
         )}
       </div>
 
-      <div className="panel absolute top-1/2 left-64 z-30 w-72 -translate-y-1/2 rounded-sm px-6 py-5">
-        <div className="section-label">Selected Body</div>
-        <div className="mt-2 text-2xl font-semibold">{selectedBody.name}</div>
-        <div className="mt-1 text-sm text-white/50">{selectedBody.kind.toUpperCase()}</div>
-
-        <div className="mt-6 grid grid-cols-2 gap-4 text-sm">
-          <div>
-            <div className="section-label">Mass</div>
-            <div className="mt-2 text-white/82">{selectedBody.mass.toFixed(1)}</div>
-          </div>
-          <div>
-            <div className="section-label">Orbit Radius</div>
-            <div className="mt-2 text-white/82">{selectedBody.orbitRadius.toFixed(1)}</div>
-          </div>
-          <div>
-            <div className="section-label">Period</div>
-            <div className="mt-2 text-white/82">{selectedBody.orbitPeriodDays} days</div>
-          </div>
-          <div>
-            <div className="section-label">Objects</div>
-            <div className="mt-2 text-white/82">{placedObjects.length} user stars</div>
-          </div>
-        </div>
-      </div>
     </>
   );
 }

@@ -1,6 +1,6 @@
 import { BottomControlBar } from '../components/layout/BottomControlBar';
 import { Sidebar } from '../components/layout/Sidebar';
-import { StatusCards } from '../components/layout/StatusCards';
+import { SelectedBodyCard, StatusCards } from '../components/layout/StatusCards';
 import { TopNav } from '../components/layout/TopNav';
 import { PerspectivePanel } from '../features/camera-control/components/PerspectivePanel';
 import { AddObjectPanel } from '../features/object-creation/components/AddObjectPanel';
@@ -44,7 +44,10 @@ export function App() {
         <main className="relative flex-1 overflow-hidden">
           <SimulationCanvas />
           <StatusCards />
-          <PerspectivePanel />
+          <div className="absolute top-6 right-6 z-30 flex w-72 flex-col gap-4">
+            <SelectedBodyCard />
+            <PerspectivePanel />
+          </div>
           <AddObjectPanel />
           <BottomControlBar />
           <TrackingBadge />
