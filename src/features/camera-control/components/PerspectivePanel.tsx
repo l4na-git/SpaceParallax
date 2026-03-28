@@ -9,7 +9,7 @@ export function PerspectivePanel() {
   const setTrackingEnabled = useAppStore((state) => state.setTrackingEnabled);
 
   return (
-    <div className="panel scanlines absolute top-20 right-6 z-30 w-72 rounded-sm px-5 py-5 text-xs">
+    <div className="panel scanlines relative w-full rounded-sm px-5 py-5 text-xs">
       <div className="mb-4 flex items-center justify-between text-[10px] tracking-[0.28em] text-white/45">
         <span>PERSPECTIVE</span>
         <span className="accent-text">{perspectiveMode}</span>
