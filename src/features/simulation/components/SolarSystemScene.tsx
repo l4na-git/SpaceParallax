@@ -54,15 +54,34 @@ function CameraRig() {
   const cameraControl = useAppStore((state) => state.cameraControl);
   const tracking = useAppStore((state) => state.tracking);
   const targetVector = useRef(new THREE.Vector3());
+  const smoothedTrackingX = useRef(0);
+  const smoothedTrackingY = useRef(0);
 
   useFrame((_, delta) => {
-    const blend = tracking.enabled && tracking.status === 'active' ? cameraControl.trackingBlend : 0;
-    const targetX = cameraControl.horizontalOffset + tracking.offsetX * 6 * blend;
-    const targetY = 8 + cameraControl.verticalOffset + tracking.offsetY * 4 * blend;
+    const blend = tracking.enabled ? cameraControl.trackingBlend : 0;
+    const desiredTrackingX = tracking.status === 'active' ? tracking.offsetX * 12 * blend : 0;
+    const desiredTrackingY = tracking.status === 'active' ? tracking.offsetY * 16 * blend : 0;
+    const trackingDamping = tracking.status === 'active' ? 4.2 : 1.6;
+    smoothedTrackingX.current = THREE.MathUtils.lerp(
+      smoothedTrackingX.current,
+      desiredTrackingX,
+      1 - Math.exp(-delta * trackingDamping),
+    );
+    smoothedTrackingY.current = THREE.MathUtils.lerp(
+      smoothedTrackingY.current,
+      desiredTrackingY,
+      1 - Math.exp(-delta * trackingDamping),
+    );
+
+    const targetX = cameraControl.horizontalOffset + smoothedTrackingX.current;
+    const targetY = 8 + cameraControl.verticalOffset + smoothedTrackingY.current;
     const targetZ = cameraControl.depth;
 
     camera.position.lerp(new THREE.Vector3(targetX, targetY, targetZ), 1 - Math.exp(-delta * 2.6));
-    targetVector.current.lerp(new THREE.Vector3(targetX * 0.18, tracking.offsetY * 0.8, 0), 1 - Math.exp(-delta * 2));
+    targetVector.current.lerp(
+      new THREE.Vector3(cameraControl.horizontalOffset * 0.18, cameraControl.verticalOffset * 0.08, 0),
+      1 - Math.exp(-delta * 2),
+    );
     camera.lookAt(targetVector.current);
   });
 
