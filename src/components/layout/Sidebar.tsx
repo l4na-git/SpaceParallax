@@ -13,7 +13,7 @@ export function Sidebar() {
   const setAddObjectPanelOpen = useAppStore((state) => state.setAddObjectPanelOpen);
 
   return (
-    <aside className="panel-soft relative z-20 flex h-full w-[220px] flex-col border-r border-white/5 bg-black/20 px-5 py-6">
+    <aside className="panel-soft relative z-20 flex h-full w-[220px] flex-col overflow-y-auto border-r border-white/5 bg-black/20 px-5 py-6">
       <div>
         <div className="flex items-center gap-3">
           <div className="h-11 w-11 rounded-lg border border-cyan-300/50 bg-cyan-300/10 shadow-[0_0_20px_rgba(21,231,255,0.16)]" />
